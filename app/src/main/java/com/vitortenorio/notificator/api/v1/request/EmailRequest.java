@@ -5,7 +5,7 @@ import com.vitortenorio.notificator.entity.EmailEntity;
 import javax.validation.constraints.NotBlank;
 
 public record EmailRequest(
-        @NotBlank(message = "The field 'to' is required")
+        @NotBlank(message = "The field 'recipient' is required")
         String recipient,
         @NotBlank(message = "The field 'subject' is required")
         String subject,
