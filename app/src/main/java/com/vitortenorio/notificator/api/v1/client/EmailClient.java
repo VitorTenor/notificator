@@ -7,6 +7,8 @@ import com.vitortenorio.notificator.exception.EmailException;
 import com.vitortenorio.notificator.gateway.EmailGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;

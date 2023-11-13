@@ -1,8 +1,6 @@
-package com.vitortenorio.notificator.api.exceptionhandler;
+package com.vitortenorio.notificator.enums;
 
-import lombok.Getter;
 
-@Getter
 public enum ProblemType {
     INVALID_FIELD("/invalid-field", "Invalid field"),
     SEND_EMAIL_ERROR("/send-email-error", "Error sending email"),
@@ -14,5 +12,13 @@ public enum ProblemType {
     ProblemType(String path, String title) {
         this.uri = path;
         this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getUri() {
+        return uri;
     }
 }
