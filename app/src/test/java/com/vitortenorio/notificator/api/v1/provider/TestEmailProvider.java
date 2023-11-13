@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.vitortenorio.notificator.util.AbstractContextTest;
 import org.junit.jupiter.api.*;
+import org.junit.platform.commons.logging.Logger;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -27,7 +28,7 @@ public class TestEmailProvider extends AbstractContextTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        emailProvider = new EmailProvider(rabbitTemplate, messageHelper);
+        emailProvider = new EmailProvider(messageHelper, rabbitTemplate);
     }
 
     @Test

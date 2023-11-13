@@ -12,6 +12,7 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
+import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -19,15 +20,22 @@ public class EmailClient implements EmailGateway {
 
     private final EmailFactory emailFactory;
     private final MessageHelper messageHelper;
+    private final Logger LOGGER = Logger.getLogger(EmailClient.class.getName());
     @Override
     public void sendEmail(EmailEntity email) {
+        LOGGER.info("Sending email...");
         JavaMailSenderImpl javaMailSender = emailFactory.createJavaMailSender();
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         try {
+            LOGGER.info("Configuring email...");
+
             emailFactory.configureMimeMessageHelper(mimeMessage, email);
             javaMailSender.send(mimeMessage);
+
+            LOGGER.info("Email sent");
         } catch (Exception e) {
+            LOGGER.severe("Error sending email");
             throw new EmailException(messageHelper.getMessage("error_sending_email"));
         }
     }

@@ -8,19 +8,26 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Logger;
+
 @Component
 @RequiredArgsConstructor
 public class EmailProvider implements EmailProviderGateway {
 
-    private final RabbitTemplate rabbitTemplate;
     private final MessageHelper messageHelper;
+    private final RabbitTemplate rabbitTemplate;
+    private final Logger LOGGER = Logger.getLogger(EmailProvider.class.getName());
 
     @Value("${spring.rabbitmq.queue}")
     private String queue;
 
     @Override
     public String sendEmailProvider(EmailEntity email) {
+        LOGGER.info("Sending email to rabbitmq queue - Queue: " + queue);
+
         rabbitTemplate.convertAndSend(queue, email);
+
+        LOGGER.info("Email sent to rabbitmq queue");
         return messageHelper.getMessage("email_sent");
     }
 

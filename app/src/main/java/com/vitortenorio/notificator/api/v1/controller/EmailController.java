@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.logging.Logger;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,9 +17,10 @@ import javax.validation.Valid;
 public class EmailController {
 
     private final SendEmailProviderUseCase sendEmailProviderUseCase;
-
+    private final Logger LOGGER = Logger.getLogger(EmailController.class.getName());
     @PostMapping("/send")
     public String sendEmailProvider(@RequestBody @Valid EmailRequest email) {
+        LOGGER.info("Sending email to " + email.recipient());
         return sendEmailProviderUseCase.execute(email.toEntity());
     }
 }

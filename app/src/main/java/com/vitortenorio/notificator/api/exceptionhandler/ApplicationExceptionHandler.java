@@ -87,11 +87,12 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers,
                                                              HttpStatus status, WebRequest request) {
+        logger.error(ex.getMessage(), ex);
+
         if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
             request.setAttribute("javax.servlet.error.exception", ex, 0);
         }
 
-        logger.error(ex.getMessage(), ex);
         return new ResponseEntity<>(body, headers, status);
     }
 }

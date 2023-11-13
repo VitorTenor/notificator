@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 @Component
 public class EmailFactory {
@@ -31,9 +32,11 @@ public class EmailFactory {
 
     @Value("${spring.mail.properties.mail.smtp.starttls.enable}")
     private Boolean starttls;
+    private final Logger LOGGER = Logger.getLogger(EmailFactory.class.getName());
+
 
     public JavaMailSenderImpl createJavaMailSender() {
-
+        LOGGER.info("Creating JavaMailSender...");
 
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setJavaMailProperties(createProperties());
@@ -43,21 +46,30 @@ public class EmailFactory {
         javaMailSender.setPassword(password);
         javaMailSender.setProtocol(protocol);
 
+        LOGGER.info("JavaMailSender created");
         return javaMailSender;
     }
 
     public void configureMimeMessageHelper(MimeMessage mimeMessage, EmailEntity email) throws Exception {
+        LOGGER.info("Configuring MimeMessageHelper...");
+
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
         helper.setFrom(sender);
         helper.setTo(email.recipient());
         helper.setSubject(email.subject());
         helper.setText(email.body(), true);
+
+        LOGGER.info("MimeMessageHelper configured");
     }
 
     private Properties createProperties() {
+        LOGGER.info("Creating properties...");
+
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", auth);
         properties.put("mail.smtp.starttls.enable", starttls);
+
+        LOGGER.info("Properties created");
         return properties;
     }
 }
