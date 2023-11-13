@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/email")
@@ -16,7 +18,7 @@ public class EmailController {
     private final SendEmailProviderUseCase sendEmailProviderUseCase;
 
     @PostMapping("/send")
-    public String sendEmailProvider(@RequestBody EmailRequest email) {
+    public String sendEmailProvider(@RequestBody @Valid EmailRequest email) {
         return sendEmailProviderUseCase.execute(email.toEntity());
     }
 }

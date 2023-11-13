@@ -1,5 +1,6 @@
 package com.vitortenorio.notificator.api.v1.provider;
 
+import com.vitortenorio.notificator.core.util.MessageHelper;
 import com.vitortenorio.notificator.entity.EmailEntity;
 import com.vitortenorio.notificator.gateway.EmailProviderGateway;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class EmailProvider implements EmailProviderGateway {
 
     private final RabbitTemplate rabbitTemplate;
+    private final MessageHelper messageHelper;
 
     @Value("${spring.rabbitmq.queue}")
     private String queue;
@@ -19,7 +21,7 @@ public class EmailProvider implements EmailProviderGateway {
     @Override
     public String sendEmailProvider(EmailEntity email) {
         rabbitTemplate.convertAndSend(queue, email);
-        return "Email sent";
+        return messageHelper.getMessage("email_sent");
     }
 
 }
