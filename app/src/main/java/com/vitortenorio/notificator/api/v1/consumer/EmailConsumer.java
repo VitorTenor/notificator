@@ -15,6 +15,7 @@ public class EmailConsumer {
 
     private final SendEmailUseCase sendEmailUseCase;
     private final Logger LOGGER = Logger.getLogger(EmailConsumer.class.getName());
+
     @RabbitListener(queues = "${spring.rabbitmq.queue}")
     public void listen(@Payload EmailEntity message) {
         LOGGER.info("Sending email...");
