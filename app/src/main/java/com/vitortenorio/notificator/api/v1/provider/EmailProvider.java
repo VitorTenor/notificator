@@ -22,7 +22,7 @@ public class EmailProvider implements EmailProviderGateway {
     private String queue;
 
     @Override
-    public String sendEmailProvider(EmailEntity email) {
+    public String sendEmailProvider(final EmailEntity email) {
         LOGGER.info("Sending email to rabbitmq queue - Queue: " + queue);
 
         rabbitTemplate.convertAndSend(queue, email);

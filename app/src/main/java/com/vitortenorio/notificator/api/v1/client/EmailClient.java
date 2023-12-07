@@ -6,10 +6,8 @@ import com.vitortenorio.notificator.entity.EmailEntity;
 import com.vitortenorio.notificator.exception.EmailException;
 import com.vitortenorio.notificator.gateway.EmailGateway;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
-import javax.mail.internet.MimeMessage;
 import java.util.logging.Logger;
 
 @Service
@@ -22,8 +20,8 @@ public class EmailClient implements EmailGateway {
     @Override
     public void sendEmail(final EmailEntity email) {
         LOGGER.info("Sending email...");
-        JavaMailSenderImpl javaMailSender = emailFactory.createJavaMailSender();
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        var javaMailSender = emailFactory.createJavaMailSender();
+        var mimeMessage = javaMailSender.createMimeMessage();
 
         try {
             LOGGER.info("Configuring email...");
