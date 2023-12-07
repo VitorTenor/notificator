@@ -20,7 +20,7 @@ public class EmailClient implements EmailGateway {
     private final MessageHelper messageHelper;
     private final Logger LOGGER = Logger.getLogger(EmailClient.class.getName());
     @Override
-    public void sendEmail(EmailEntity email) {
+    public void sendEmail(final EmailEntity email) {
         LOGGER.info("Sending email...");
         JavaMailSenderImpl javaMailSender = emailFactory.createJavaMailSender();
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();

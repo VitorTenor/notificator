@@ -38,7 +38,7 @@ public class EmailFactory {
     public JavaMailSenderImpl createJavaMailSender() {
         LOGGER.info("Creating JavaMailSender...");
 
-        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+        var javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setJavaMailProperties(createProperties());
         javaMailSender.setHost(host);
         javaMailSender.setPort(port);
@@ -50,10 +50,10 @@ public class EmailFactory {
         return javaMailSender;
     }
 
-    public void configureMimeMessageHelper(MimeMessage mimeMessage, EmailEntity email) throws Exception {
+    public void configureMimeMessageHelper(final MimeMessage mimeMessage, final EmailEntity email) throws Exception {
         LOGGER.info("Configuring MimeMessageHelper...");
 
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+        var helper = new MimeMessageHelper(mimeMessage, true);
         helper.setFrom(sender);
         helper.setTo(email.recipient());
         helper.setSubject(email.subject());
@@ -65,7 +65,7 @@ public class EmailFactory {
     private Properties createProperties() {
         LOGGER.info("Creating properties...");
 
-        Properties properties = new Properties();
+        var properties = new Properties();
         properties.put("mail.smtp.auth", auth);
         properties.put("mail.smtp.starttls.enable", starttls);
 
