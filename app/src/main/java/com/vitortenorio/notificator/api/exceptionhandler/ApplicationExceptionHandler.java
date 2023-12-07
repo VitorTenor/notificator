@@ -39,8 +39,8 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 
     private ResponseEntity<Object> handleValidationInternal(Exception ex, HttpHeaders headers, HttpStatus status,
                                                                 WebRequest request, BindingResult bindingResult) {
-        ProblemType problemType = ProblemType.INVALID_FIELD;
-        final String ONE_OR_MORE_FIELDS_ARE_INVALID = messageHelper.getMessage("invalid_one_or_more_field");
+        var problemType = ProblemType.INVALID_FIELD;
+        final var ONE_OR_MORE_FIELDS_ARE_INVALID = messageHelper.getMessage("invalid_one_or_more_field");
 
         List<Problem.Object> list = bindingResult.getAllErrors().stream()
                 .map(objectError -> {
@@ -56,7 +56,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
                 })
                 .collect(java.util.stream.Collectors.toList());
 
-        Problem problem = createProblem(status, problemType, ONE_OR_MORE_FIELDS_ARE_INVALID);
+        var problem = createProblem(status, problemType, ONE_OR_MORE_FIELDS_ARE_INVALID);
         problem.setObjects(list);
 
         return handleExceptionInternal(ex, problem, headers, status, request);
@@ -64,9 +64,9 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 
     @ExceptionHandler(EmailException.class)
     public ResponseEntity<Object> handleEmailException(EmailException ex, WebRequest request) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        ProblemType problemType = ProblemType.SEND_EMAIL_ERROR;
-        final String ERROR_SENDING_EMAIL = messageHelper.getMessage("error_sending_email");
+        var status = HttpStatus.BAD_REQUEST;
+        var problemType = ProblemType.SEND_EMAIL_ERROR;
+        final var ERROR_SENDING_EMAIL = messageHelper.getMessage("error_sending_email");
 
         Problem problem = createProblem(status, problemType, ERROR_SENDING_EMAIL);
 
