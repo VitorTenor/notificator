@@ -3,20 +3,12 @@ server:
   port: 8080
 
 spring:
-  #Database
-  datasource:
-    url: jdbc:postgresql://localhost:5432/notificator
-    username: postgres
-    password: postgres
-    jpa:
-        hibernate:
-            ddl-auto: update
   mail:
     host: smtp.gmail.com
     port: 587
     protocol: smtp
-    username: mail01notificator@gmail.com
-    password: //*****************
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -27,5 +19,4 @@ spring:
   #RabbitMQ
   rabbitmq:
     queue: email
-    addresses: amqps://********************************************.cloudamqp.com
-
+    addresses: ${RABBITMQ_CONNECTION}
