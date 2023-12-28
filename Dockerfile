@@ -5,4 +5,8 @@ WORKDIR /app
 COPY app/target/notificator-app.jar /app/notificator-app.jar
 COPY domain/target/notificator-domain.jar /app/notificator-domain.jar
 
+ENV EMAIL_USERNAME=${EMAIL_USERNAME}
+ENV EMAIL_PASSWORD=${EMAIL_PASSWORD}
+ENV RABBITMQ_CONNECTION=${RABBITMQ_CONNECTION}
+
 ENTRYPOINT ["java","-jar","/app/notificator-app.jar"]
