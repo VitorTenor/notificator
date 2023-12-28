@@ -9,4 +9,4 @@ ENV EMAIL_USERNAME=descomplicando
 ENV EMAIL_PASSWORD=descomplicando
 ENV RABBITMQ_CONNECTION=localhost
 
-ENTRYPOINT ["java","-jar","/app/notificator.jar"]
+ENTRYPOINT ["java","-jar","/app/notificator-app.jar"]
